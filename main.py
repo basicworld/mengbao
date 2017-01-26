@@ -56,7 +56,7 @@ def handle():
     # 回复消息
     if request.method == 'POST':
         try:
-            body_text = request.content
+            body_text = request.data
             wechat.parse_data(body_text)
 
             # msg_id = wechat.message.id          # 对应于 XML 中的 MsgId
