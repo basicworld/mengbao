@@ -5,6 +5,8 @@ __pycache__/
 
 # C extensions
 *.so
+# private conf
+mengbao_private_conf.py
 
 # Distribution / packaging
 .Python
