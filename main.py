@@ -29,7 +29,9 @@ def handle():
         timestamp = request.args.get('timestamp', '')
         nonce = request.args.get('nonce', '')
         echostr = request.args.get('echostr', '')
+        print (signature, timestamp, nonce)
         if wechat.check_signature(signature, timestamp, nonce):
+            print echostr
             return echostr
         else:
             return 'Wrong'
