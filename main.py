@@ -79,6 +79,7 @@ def handle():
                 receive_content = wechat.message.content  # 接收的消息
                 # 消息处理
                 response_content = text_parse(receive_content)
+
             else:
                 # 其他消息类型暂不处理
                 # response_conten = u'开发中,敬请期待...'

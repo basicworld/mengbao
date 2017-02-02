@@ -21,7 +21,7 @@ str_query_phone_model = u"""\
 手机号字段: %s
 手机号类型: %s
 手机号归属地: %s
-归属地区号: %s
+归属地区号: %s\
 """
 import MySQLdb as mdb
 import sys
