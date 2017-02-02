@@ -10,3 +10,5 @@ def text_parse(content):
     # 检测是否为手机号
     if content.isalnum() and len(content) == 11:
         return u'手机号'
+    else:
+        return u'未识别的文本信息'
