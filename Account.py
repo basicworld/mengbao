@@ -34,7 +34,7 @@ str_query_idcard_model = u"""\
 身份证字段: %s
 身份证归属地: %s
 """
-sql_error_model = "Error %d: %s"
+sql_error_model = "未查询到相关信息"
 
 class MysqlQuery(object):
     def __init__(self, host='localhost', user='wechat', passwd='', dbname='mengbao'):
@@ -58,7 +58,7 @@ class MysqlQuery(object):
         try:
             self.cur.execute(sql)
             que = self.cur.fetchone()
-            return str_query_phone_model % que
+            return (str_query_phone_model % que) if que else sql_error_model
         except mdb.Error, e:
             return "Error %d: %s" % (e.args[0], e.args[1])
 
@@ -68,7 +68,7 @@ class MysqlQuery(object):
         try:
             self.cur.execute(sql)
             que = self.cur.fetchone()
-            return str_query_idcard_model % que
+            return (str_query_idcard_model % que) if que else sql_error_model
         except mdb.Error, e:
             return "Error %d: %s" % (e.args[0], e.args[1])
 
