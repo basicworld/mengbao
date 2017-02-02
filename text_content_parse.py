@@ -11,27 +11,45 @@ sys.setdefaultencoding('utf8')  # 编译环境utf8
 
 help_info = u'''\
 功能示例
-【手机归属】
+1. 查询手机归属地
 15311448899
-归属地15311448899
-gsd15311448899\
+手机15311448899
+sj15311448899
+(至少输入手机号前7位)
+
+2. 查询身份证归属地
+身份证110100199212303410
+sfz110100199212303410
+(至少输入身份证前6位)\
 '''
 from Account import MysqlQuery
 
+
 def text_parse(content, **kwargs):
-    """处理"""
-    content.strip()
-    # 检测是否为手机号
-    _copy = content
-    if _copy.startswith(u'归属地') or _copy.startswith(u'gsd'):
-        _copy = _copy[3:].strip()
+    """处理文本"""
+    content = content.strip()
+    # 检测是否为手机号, 如果是则返回归属地
+    _copy = content.lower()
+    if _copy.startswith(u'手机') or _copy.startswith(u'sj'):
+        _copy = _copy[2:].strip()
     if _copy.startswith('+86'):
         _copy = _copy[3:]
     _copy = re.sub(r' |-', '', _copy)
-    if _copy.isalnum() and len(_copy) == 11 and _copy[0] == '1':
+    if _copy.isalnum() and len(_copy) >= 7 and _copy[0] == '1':
         my = MysqlQuery()
         resp = my.query_phone(_copy)
         del my
         return resp
-    else:
-        return help_info
+
+    # 检测是否为身份证号，如果是则返回归属地
+    _copy = content.lower()
+    if _copy.startswith(u'身份证') or _copy.startswith(u'sfz'):
+        _copy = _copy[3:].strip()
+    _copy = re.sub(r' |-', '', _copy)
+    if _copy.isalnum() and len(_copy) >= 6:
+        my = MysqlQuery()
+        resp = my.query_idcard(_copy)
+        del my
+        return resp
+
+    return help_info
