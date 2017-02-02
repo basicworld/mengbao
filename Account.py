@@ -86,5 +86,10 @@ if __name__ == '__main__':
     my = MysqlQuery()
     print my._test()
     print my.query_phone('15311447009')
+    print my.query_phone('1299999')
+    print my.query_phone('234111113')
+    print my.query_phone('153')
+    print my.query_idcard('sfz110100')
+    print my.query_idcard('sfz999999')
     print my.query_idcard('110100199212292314')
     del my
