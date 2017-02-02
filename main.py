@@ -3,6 +3,12 @@
 """
 主框架，主文件
 """
+import os
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')  # 编译环境utf8
+THIS_DIR = os.path.realpath(os.path.dirname(__file__))
+sys.path.insert(0, THIS_DIR)
 from text_content_parse import text_parse
 # wechat-sdk setting start
 from mengbao_private_conf import *
@@ -55,8 +61,10 @@ def handle():
 
     # 回复消息
     if request.method == 'POST':
+        response_content = u'我现在只认识文字，别难为宝宝了(づ￣ 3￣)づ'
         try:
             body_text = request.data
+            # print body_text
             wechat.parse_data(body_text)
 
             # msg_id = wechat.message.id          # 对应于 XML 中的 MsgId
@@ -71,15 +79,15 @@ def handle():
                 receive_content = wechat.message.content  # 接收的消息
                 # 消息处理
                 response_content = text_parse(receive_content)
-                # 构建微信xml
-                xml = wechat.response_text(content=response_content)
-                return xml
             else:
                 # 其他消息类型暂不处理
-                return u'开发中,敬请期待...'
+                # response_conten = u'开发中,敬请期待...'
+                pass
         except ParseError:
-            print 'Invalid Body Text'
+            response_content = 'Invalid Body Text'
 
-
+        # 构建微信xml
+        xml = wechat.response_text(content=response_content)
+        return xml
 if __name__ == '__main__':
     app.run(port='8008')
