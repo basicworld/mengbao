@@ -3,6 +3,10 @@
 """
 一些账户类
 """
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')  # 编译环境utf8
+
 
 sql_query_phone_model = """
 select m.MobileNumber,
