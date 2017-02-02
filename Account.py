@@ -6,12 +6,18 @@
 
 sql_query_phone_model = """
 select m.MobileNumber,
-m.MobileArea,
 m.MobileType,
+m.MobileArea,
 m.AreaCode
 from Mobile m
 where TRUE
 and m.MobileNumber='%(phone)s';
+"""
+str_query_phone_model = u"""\
+手机号字段: %s
+手机号类型: %s
+手机号归属地: %s
+归属地区号: %s
 """
 import MySQLdb as mdb
 import sys
@@ -41,7 +47,7 @@ class MysqlQuery(object):
         sql = sql_query_phone_model % {'phone': phone}
         self.cur.execute(sql)
         que = self.cur.fetchone()
-        return que
+        return str_query_phone_model % que
 
     def query_english(self):
         pass
