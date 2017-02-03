@@ -24,6 +24,9 @@ sfz110100199212303410
 
 3. 看笑话
 输入任一关键词:x、xh、笑话
+
+4. 牛津词典
+输入单词, 如: english
 '''
 from Account import MysqlQuery
 from Juhe import Juhe

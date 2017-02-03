@@ -13,10 +13,6 @@ sql_query_words_model = """
 SELECT *
 from Words w
 where w.word='%(word)s';"""
-str_query_words_model = u"""\
-单词: %s
-释义: %s\
-"""
 
 sql_query_phone_model = """
 select m.MobileNumber,
@@ -86,12 +82,13 @@ class MysqlQuery(object):
             self.cur.execute(sql)
             que = self.cur.fetchone()
             if que:
-                return (str_query_words_model % que)
+                return que[-1]
             elif not word.islower():
                 sql = sql_query_words_model % {'word': word.lower()}
                 self.cur.execute(sql)
                 que = self.cur.fetchone()
-                return (str_query_words_model % que) if que else False
+                return que[-1]
+                # return (str_query_words_model % que) if que else False
             else:
                 return False
         except mdb.Error, e:
