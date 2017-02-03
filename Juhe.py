@@ -43,5 +43,7 @@ class Juhe(object):
 
 
 if __name__ == '__main__':
-    jh = Juhe()
-    print jh.get_joke()
+    ju = Juhe()
+    jokes = ju.get_joke()
+    del ju
+    print jokes
