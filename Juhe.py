@@ -10,7 +10,7 @@ sys.setdefaultencoding('utf8')  # 编译环境utf8
 # from purl import URL
 import requests
 import json
-from mengbao_private_conf import juhe_url_randn_joke
+from mengbao_private_conf import juhe_url_randn_joke, juhe_url_new_joke
 
 
 class Juhe(object):
@@ -20,7 +20,7 @@ class Juhe(object):
     def get_joke(self):
         """获取随机笑话"""
         try:
-            resp = requests.get(juhe_url_randn_joke)
+            resp = requests.get(juhe_url_new_joke)
             if resp.ok:
                 jokes = self._parse_joke(resp.content)
                 return jokes
@@ -33,8 +33,8 @@ class Juhe(object):
     def _parse_joke(resp_content):
         try:
             ret = json.loads(resp_content)
-            if ret['reason'] == 'success':
-                return '\n----------\n'.join([i['content'] for i in ret['result']])
+            if ret['reason'].lower() == 'success':
+                return '\n----------\n'.join([i['content'] for i in ret['result']['data']])
             else:
                 return u'_parse_joke()解析错误<001>'
         except:
