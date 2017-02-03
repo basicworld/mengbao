@@ -35,7 +35,7 @@ from Juhe import Juhe
 def text_parse(content, **kwargs):
     """处理文本"""
     content = content.strip()
-    # my = MysqlQuery()
+    my = MysqlQuery()
 
     # 如果是笑话，则调用聚合数据
     if content in [u'笑话', 'xh', 'x']:
@@ -51,7 +51,7 @@ def text_parse(content, **kwargs):
     else:
         # 查询单词库
         try:
-            my = MysqlQuery()
+            # my = MysqlQuery()
             resp = my.query_word(content)
             if resp:
                 # 如果是单词，则返回，否则继续
@@ -70,7 +70,7 @@ def text_parse(content, **kwargs):
         _copy = _copy[3:]
     _copy = re.sub(r' |-', '', _copy)
     if _copy.isalnum() and len(_copy) >= 7 and _copy[0] == '1':
-        my = MysqlQuery()
+        # my = MysqlQuery()
         resp = my.query_phone(_copy)
         del my
         return resp
@@ -81,7 +81,7 @@ def text_parse(content, **kwargs):
         _copy = _copy[3:].strip()
     _copy = re.sub(r' |-', '', _copy)
     if _copy.isalnum() and len(_copy) >= 6:
-        my = MysqlQuery()
+        # my = MysqlQuery()
         resp = my.query_idcard(_copy)
         del my
         return resp

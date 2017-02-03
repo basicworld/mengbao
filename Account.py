@@ -77,6 +77,8 @@ class MysqlQuery(object):
             return "Error %d: %s" % (e.args[0], e.args[1])
 
     def query_word(self, word):
+        if word.isalnum():
+            return False
         try:
             sql = sql_query_words_model % {'word': word}
             self.cur.execute(sql)
@@ -87,8 +89,8 @@ class MysqlQuery(object):
                 sql = sql_query_words_model % {'word': word.lower()}
                 self.cur.execute(sql)
                 que = self.cur.fetchone()
-                return que[-1]
-                # return (str_query_words_model % que) if que else False
+                # return que[-1]
+                return (str_query_words_model % que) if que else False
             else:
                 return False
         except mdb.Error, e:
