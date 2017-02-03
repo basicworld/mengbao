@@ -77,7 +77,7 @@ class MysqlQuery(object):
             return "Error %d: %s" % (e.args[0], e.args[1])
 
     def query_word(self, word):
-        if word.isalnum():
+        if word.isdigit():
             return False
         try:
             sql = sql_query_words_model % {'word': word}

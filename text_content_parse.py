@@ -68,7 +68,7 @@ def text_parse(content, **kwargs):
     if _copy.startswith('+86'):
         _copy = _copy[3:]
     _copy = re.sub(r' |-', '', _copy)
-    if _copy.isalnum() and len(_copy) >= 7 and _copy[0] == '1':
+    if _copy.isdigit() and len(_copy) >= 7 and _copy[0] == '1':
         # my = MysqlQuery()
         resp = my.query_phone(_copy)
         del my
@@ -79,7 +79,7 @@ def text_parse(content, **kwargs):
     if _copy.startswith(u'身份证') or _copy.startswith(u'sfz'):
         _copy = _copy[3:].strip()
     _copy = re.sub(r' |-', '', _copy)
-    if _copy.isalnum() and len(_copy) >= 6:
+    if _copy.isdigit() and len(_copy) >= 6:
         # my = MysqlQuery()
         resp = my.query_idcard(_copy)
         del my
