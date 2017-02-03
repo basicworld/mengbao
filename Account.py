@@ -9,6 +9,14 @@ sys.setdefaultencoding('utf8')  # 编译环境utf8
 import MySQLdb as mdb
 import sys
 
+sql_query_words_model = """
+SELECT *
+from Words w
+where w.word='%(word)s';"""
+str_query_words_model = u"""\
+单词: %s
+释义: %s
+"""
 
 sql_query_phone_model = """
 select m.MobileNumber,
@@ -72,6 +80,23 @@ class MysqlQuery(object):
         except mdb.Error, e:
             return "Error %d: %s" % (e.args[0], e.args[1])
 
+    def query_word(self, word):
+        try:
+            sql = sql_query_words_model % {'word': word}
+            self.cur.execute(sql)
+            que = self.cur.fetchone()
+            if que:
+                return (str_query_words_model % que)
+            elif not word.a.islower():
+                sql = sql_query_words_model % {'word': word.lower()}
+                self.cur.execute(sql)
+                que = self.cur.fetchone()
+                return (str_query_words_model % que) if que else False
+            else:
+                return False
+        except mdb.Error, e:
+            return "Error %d: %s" % (e.args[0], e.args[1])
+
     def _test(self):
         self.cur.execute("SELECT VERSION()")
         ver = self.cur.fetchone()
@@ -92,4 +117,6 @@ if __name__ == '__main__':
     print my.query_idcard('sfz110100')
     print my.query_idcard('sfz999999')
     print my.query_idcard('110100199212292314')
+    print my.query_word('110100199212292314')
+    print my.query_word('english')
     del my
