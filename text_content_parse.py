@@ -23,7 +23,7 @@ sfz110100199212303410
 (至少输入身份证前6位)\
 
 3. 看笑话
-输入以下任一关键词:xh、joke、笑话
+输入任一关键词:xh、joke、笑话
 '''
 from Account import MysqlQuery
 from Juhe import Juhe
@@ -38,9 +38,11 @@ def text_parse(content, **kwargs):
             ju = Juhe()
             jokes = ju.get_joke()
             del ju
-            return jokes
+            return jokes if jokes else 'text_parse() error<002>'
         except:
-            raise
+            return 'text_parse() error<001>'
+            # with open('error_juhe.log', 'a+') as f:
+                # f.write('resp_code:')
 
     # 检测是否为手机号, 如果是则返回归属地
     _copy = content.lower()
