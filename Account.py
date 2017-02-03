@@ -15,7 +15,7 @@ from Words w
 where w.word='%(word)s';"""
 str_query_words_model = u"""\
 单词: %s
-释义: %s
+释义: %s\
 """
 
 sql_query_phone_model = """
@@ -87,7 +87,7 @@ class MysqlQuery(object):
             que = self.cur.fetchone()
             if que:
                 return (str_query_words_model % que)
-            elif not word.a.islower():
+            elif not word.islower():
                 sql = sql_query_words_model % {'word': word.lower()}
                 self.cur.execute(sql)
                 que = self.cur.fetchone()
