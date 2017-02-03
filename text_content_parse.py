@@ -58,8 +58,7 @@ def text_parse(content, **kwargs):
                 del my
                 return resp
         except:
-            raise
-            # return 'text_parse() error<006>'
+            return 'text_parse() error<006>'
             pass
 
     # 检测是否为手机号, 如果是则返回归属地
