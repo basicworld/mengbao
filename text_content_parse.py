@@ -20,10 +20,10 @@ sj15311448899
 2. 查询身份证归属地
 身份证110100199212303410
 sfz110100199212303410
-(至少输入身份证前6位)\
+(至少输入身份证前6位)
 
 3. 看笑话
-输入任一关键词:xh、joke、笑话
+输入任一关键词:x、xh、joke、笑话
 '''
 from Account import MysqlQuery
 from Juhe import Juhe
@@ -33,7 +33,7 @@ def text_parse(content, **kwargs):
     """处理文本"""
     content = content.strip()
     # 如果是笑话，则调用聚合数据
-    if content in [u'笑话', 'xh', 'joke']:
+    if content in [u'笑话', 'xh', 'joke', 'x']:
         try:
             ju = Juhe()
             jokes = ju.get_joke('randn')
