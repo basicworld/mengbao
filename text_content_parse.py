@@ -36,7 +36,7 @@ def text_parse(content, **kwargs):
     if content in [u'笑话', 'xh', 'joke']:
         try:
             ju = Juhe()
-            jokes = ju.get_joke()
+            jokes = ju.get_joke('randn')
             del ju
             return jokes if jokes else 'text_parse() error<002>'
         except:
