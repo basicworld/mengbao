@@ -27,6 +27,9 @@ sfz110100199212303410
 
 4. 牛津词典
 输入单词, 如: english
+
+5. 机器人
+问答机器人, 如: 你好
 '''
 from Account import MysqlQuery
 from Juhe import Juhe
@@ -84,5 +87,10 @@ def text_parse(content, **kwargs):
         resp = my.query_idcard(_copy)
         del my
         return resp
+
+    if content not in ['help', 'h']:
+        ju = Juhe()
+        return ju.get_robot(content)
+        del ju
 
     return help_info
