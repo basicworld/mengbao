@@ -77,7 +77,9 @@ class MysqlQuery(object):
             return "Error %d: %s" % (e.args[0], e.args[1])
 
     def query_word(self, word):
-        if word.isdigit():
+        """英汉字典"""
+        # 如果不是英文单词，返回False
+        if (not word.isalpha()) or word.isdigit():
             return False
         try:
             sql = sql_query_words_model % {'word': word}
