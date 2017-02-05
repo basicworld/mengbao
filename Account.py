@@ -120,4 +120,5 @@ if __name__ == '__main__':
     print my.query_idcard('110100199212292314')
     print my.query_word('110100199212292314')
     print my.query_word('english')
+    print my.query_word('你好')
     del my
