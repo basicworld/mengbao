@@ -33,11 +33,13 @@ sfz110100199212303410
 # 问答机器人, 如: 你好
 from Account import MysqlQuery
 from Juhe import Juhe
-
+import chardet
 
 def text_parse(content, **kwargs):
     """处理文本"""
     content = content.strip()
+    content = content.encode('utf8')
+    #print chardet.detect(content)
     my = MysqlQuery()
 
     # 如果是笑话，则调用聚合数据
@@ -55,6 +57,7 @@ def text_parse(content, **kwargs):
         # 查询单词库
         try:
             # my = MysqlQuery()
+            #print content
             resp = my.query_word(content)
             if resp:
                 # 如果是单词，则返回，否则继续

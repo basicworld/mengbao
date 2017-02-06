@@ -8,6 +8,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')  # 编译环境utf8
 import MySQLdb as mdb
 import sys
+import chardet
 
 sql_query_words_model = """
 SELECT *
@@ -44,6 +45,7 @@ class MysqlQuery(object):
     def __init__(self, host='localhost', user='wechat', passwd='', dbname='mengbao', charset='utf8'):
         # try:
         self.con = mdb.connect(host, user, passwd, dbname)
+        #self.con = mdb.connect(host, user, passwd, dbname, charset=charset)
         self.cur = self.con.cursor()
         #self.con.set_character_set('utf8')
         #self.cur.execute('SET NAMES utf8;') 
@@ -83,20 +85,24 @@ class MysqlQuery(object):
     def query_word(self, word):
         """英汉字典"""
         # 如果不是英文单词，返回False
+        #print word.isalpha()
         if (not word.isalpha()) or word.isdigit():
             return False
         try:
             sql = sql_query_words_model % {'word': word}
+            print sql
             self.cur.execute(sql)
             que = self.cur.fetchone()
             if que:
+                #print que[-1].decode('utf8')
+                #print chardet.detect(que[-1])
                 return que[-1]
-            elif not word.islower():
-                sql = sql_query_words_model % {'word': word.lower()}
-                self.cur.execute(sql)
-                que = self.cur.fetchone()
-                # return que[-1]
-                return (str_query_words_model % que) if que else False
+            #elif not word.islower():
+            #    sql = sql_query_words_model % {'word': word.lower()}
+            #    self.cur.execute(sql)
+            #    que = self.cur.fetchone()
+            #    #print que[-1] if que else 'testwlfei'
+            #    return (str_query_words_model % que) if que else False
             else:
                 return False
         except mdb.Error, e:
