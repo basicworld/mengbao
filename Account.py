@@ -41,10 +41,14 @@ str_query_idcard_model = u"""\
 sql_error_model = "未查询到相关信息"
 
 class MysqlQuery(object):
-    def __init__(self, host='localhost', user='wechat', passwd='', dbname='mengbao'):
+    def __init__(self, host='localhost', user='wechat', passwd='', dbname='mengbao', charset='utf8'):
         # try:
         self.con = mdb.connect(host, user, passwd, dbname)
         self.cur = self.con.cursor()
+        #self.con.set_character_set('utf8')
+        #self.cur.execute('SET NAMES utf8;') 
+        #self.cur.execute('SET CHARACTER SET utf8;')
+        #self.cur.execute('SET character_set_connection=utf8;')
 
     def __del__(self):
         self._close()
